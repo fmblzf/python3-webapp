@@ -71,5 +71,5 @@ def print_successive_primes(iter,base=10):
 
 print_successive_primes(10)
 
-
+#开始webapp开发
 
