@@ -1,0 +1,10 @@
+#Python 3.5.1
+
+#第三方的模块列表
+
+#1.异步框架aiohttp
+$pip3 install aiohttp
+#2.前端模板引擎jinja2
+$ pip3 install jinja2
+#3.MySQL的Python异步驱动程序aiomysql
+$ pip3 install aiomysql
