@@ -120,7 +120,7 @@ class TextField(Field):
 #ModelMetaclass 读取子类的映射信息
 class ModelMetaclass(type):
 	"""docstring for ModelMetaclass"""
-	def __init__(cls,name,bases,attrs):
+	def __new__(cls,name,bases,attrs):
 		#排除model基类本身
 		if name == 'Model':
 			return type.__new__(cls,name,bases,attrs)
@@ -158,7 +158,7 @@ class ModelMetaclass(type):
 		#构造默认的SELECT,INSERT,UPDATE和DELETE语句：
 		attrs['__select__'] = 'select `%s`,%s from `%s`' % (primaryKey,','.join(escaped_fields),tableName)
 		attrs['__insert__'] = 'insert into `%s`(%s,`%s`) values(%s)' % (tableName,','.json(escaped_fields),primaryKey,create_args_string(len(escaped_fields)+1))
-		attrs['__update__'] = 'update `%s` set %s where `%s`=?' % (tableName,','.join(map(lambda f:'`%s=?`' % (mappings.get(f).name or f)),fields)),primaryKey)
+		attrs['__update__'] = 'update `%s` set %s where `%s`=?' % (tableName,','.join(map(lambda f:'`%s=?`' % (mappings.get(f).name or f)),fields),primaryKey)
 		attrs['__delete__'] = 'delete from `%s` where `%s`=?' % (tableName,primaryKey)
 		return type.__new__(cls,name,bases,attrs)
 		
@@ -221,7 +221,7 @@ class Model(dict,metaclass=ModelMetaclass):
 			if isinstance(limit,int):
 				sql.append('?')
 				args.append(limit)
-			else if isinstance(limit,tuple) and len(limit) == 2:
+			elif isinstance(limit,tuple) and len(limit) == 2:
 				sql.append('?,?')
 				args.extend(limit)
 			else:
