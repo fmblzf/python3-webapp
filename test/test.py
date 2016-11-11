@@ -8,15 +8,19 @@ sys.path.append('D:\\Program Files\\work\\workspace\\python35\\python3-webapp\\a
 sys.path.append('D:\\Program Files\\work\\workspace\\python35\\python3-webapp\\app\\model')
 import orm
 from models import User,Blog,Comment
+import asyncio
 
 def test():
-	yield from orm.create_pool(None,user='py',password='123456',db='awesome')
-
+	loop = asyncio.get_event_loop()
+	yield from orm.create_pool(loop,user='py',password='123456',db='awesome')
+	print('kaishi')
 	u = User(name='Test',email='test@example.com',passwd='1234567890',image='about:blank')
 
 	yield from u.save()
+	print('baocun')
 
-for x in test():
-	pass
+f = test()
+print(next(f))
+	
 
 

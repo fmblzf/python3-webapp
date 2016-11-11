@@ -49,9 +49,5 @@ class Comment(object):
 	user_image = StringField(ddl='varchar(500)')
 	content = TextField()
 	created_at = FloatField(default=time.time)
-
-
-
-if __name__ == '__main__':
-	print(next_id())
+	
  
